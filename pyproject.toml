@@ -7,7 +7,7 @@ name = "terimce"
 version = "0.1.0"
 description = "Oyun çevirileri için denetleyici ve ortak terim sözlüğü"
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 license = "MIT"
 license-files = ["LICENSE", "LICENSE-DATA"]
 authors = [{ name = "misutesu-desu" }]

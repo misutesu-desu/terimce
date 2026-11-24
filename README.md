@@ -31,7 +31,7 @@ ornekler/tr.po:24: uyarı noktalama-son: kaynak ? ile bitiyor, çeviri noktalama
 
 ## Kurulum
 
-Python 3.9 ya da daha yenisi gerekir. Paket henüz PyPI'da değil, şimdilik GitHub'dan kurulur:
+Python 3.10 ya da daha yenisi gerekir. Paket henüz PyPI'da değil, şimdilik GitHub'dan kurulur:
 
 ```
 pip install git+https://github.com/misutesu-desu/terimce
