@@ -1,0 +1,38 @@
+name: terimce
+description: Oyun çeviri dosyalarını denetler, sorunları PR satırlarında gösterir.
+author: misutesu-desu
+branding:
+  icon: check-square
+  color: red
+
+inputs:
+  files:
+    description: Denetlenecek dosyalar, boşlukla ayrılır. Glob kullanılabilir.
+    required: true
+  lang:
+    description: Hedef dil.
+    default: tr
+  args:
+    description: terimce lint komutuna eklenecek diğer seçenekler, örneğin --strict --max-ratio 1.4
+    default: ""
+  python-version:
+    description: Kullanılacak Python sürümü.
+    default: "3.12"
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-python@v5
+      with:
+        python-version: ${{ inputs.python-version }}
+    - shell: bash
+      run: python -m pip install --quiet "$GITHUB_ACTION_PATH"
+    - shell: bash
+      env:
+        FILES: ${{ inputs.files }}
+        LANG_CODE: ${{ inputs.lang }}
+        ARGS: ${{ inputs.args }}
+      run: |
+        shopt -s globstar nullglob
+        # FILES ve ARGS bilerek tırnaksız: glob açılsın ve seçenekler ayrı kelime olsun.
+        terimce lint --lang "$LANG_CODE" --output github $ARGS $FILES
