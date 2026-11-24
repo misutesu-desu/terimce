@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>terimce: oyun çevirisi terim sözlüğü</title>
+<meta name="description" content="Oyun çevirmenleri için ortak İngilizce Türkçe terim sözlüğü. Herkes düzenleyebilir.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%23005fb8'/%3E%3Ctext x='8' y='12.5' font-size='12' font-family='Segoe UI,sans-serif' text-anchor='middle' fill='%23fff'%3E%C4%B0%3C/text%3E%3C/svg%3E">
+<style>
+.skip { position: absolute; left: -9999px; }
+.skip:focus { left: 8px; top: 8px; background: var(--field); padding: 4px 8px; z-index: 1; }
+:root {
+  color-scheme: dark;
+  --strip: #0a0a0a; --content: #191919; --nav: #1f1f1f; --field: #2c2c2c;
+  --hover: #2d2d2d; --line: #3a3a3a; --control-stroke: #8a8a8a;
+  --button: #2d2d2d; --button-stroke: #3a3a3a; --pressed: #424242;
+  --text: #f0f0f0; --weak: #c8c8c8;
+  --accent: #0078d4; --accent-text: #60cdff; --error-text: #ff99a4;
+  --focus: var(--text);
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    color-scheme: light;
+    --strip: #e8e8e8; --content: #fff; --nav: #f9f9f9; --field: #fff;
+    --hover: #f0f0f0; --line: #e5e5e5; --button: #fbfbfb; --button-stroke: #dedede;
+    --pressed: #dedede; --text: #1a1a1a; --weak: #606060;
+    --accent-text: #005fb8; --error-text: #c42b1c;
+  }
+}
+:root[data-theme="light"] {
+  color-scheme: light;
+  --strip: #e8e8e8; --content: #fff; --nav: #f9f9f9; --field: #fff;
+  --hover: #f0f0f0; --line: #e5e5e5; --button: #fbfbfb; --button-stroke: #dedede;
+  --pressed: #dedede; --text: #1a1a1a; --weak: #606060;
+  --accent-text: #005fb8; --error-text: #c42b1c;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; background: var(--content); color: var(--text);
+  font: 14px/1.5 "Segoe UI Variable", "Segoe UI", system-ui, sans-serif; }
+a { color: var(--accent-text); }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+header { background: var(--strip); padding: 16px 24px; display: flex; flex-wrap: wrap;
+  gap: 8px 24px; align-items: baseline; }
+header h1 { font-size: 20px; margin: 0; }
+header p { margin: 0; color: var(--weak); flex: 1 1 320px; }
+header nav { display: flex; gap: 16px; }
+.bar { background: var(--nav); padding: 12px 24px; display: flex; flex-wrap: wrap;
+  gap: 8px 12px; align-items: center; border-bottom: 1px solid var(--line);
+  position: sticky; top: 0; }
+input, select { font: inherit; color: var(--text); background: var(--field); border: 0;
+  border-bottom: 1px solid var(--control-stroke); border-radius: 4px; height: 32px; padding: 0 8px; }
+:root[data-theme="light"] :is(input, select) { border: 1px solid var(--line);
+  border-bottom-color: var(--control-stroke); }
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) :is(input, select) { border: 1px solid var(--line);
+    border-bottom-color: var(--control-stroke); }
+}
+input:focus { outline: none; border-bottom: 2px solid var(--accent-text); }
+#q { flex: 1 1 240px; max-width: 420px; }
+button { font: inherit; color: var(--text); background: var(--button);
+  border: 1px solid var(--button-stroke); border-radius: 5px; min-height: 32px; padding: 0 12px; cursor: pointer; }
+button:hover { background: var(--hover); }
+button:active { background: var(--pressed); }
+#count { color: var(--weak); font-variant-numeric: tabular-nums; margin-left: auto; }
+main { padding: 0 24px 48px; }
+table { width: 100%; border-collapse: collapse; }
+th { text-align: left; font-weight: 400; color: var(--weak); padding: 12px 8px 8px;
+  border-bottom: 1px solid var(--line); }
+td { padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top;
+  overflow-wrap: anywhere; }
+tbody tr:hover { background: var(--hover); }
+td.tr { font-size: 16px; }
+td.avoid { color: var(--error-text); }
+td.note { color: var(--weak); max-width: 40ch; }
+.edit { white-space: nowrap; }
+#empty { padding: 32px 8px; max-width: 65ch; }
+#empty[hidden] { display: none; }
+footer { padding: 24px; color: var(--weak); border-top: 1px solid var(--line); }
+@media (max-width: 720px) {
+  thead { display: none; }
+  table, tbody, tr, td { display: block; }
+  tr { padding: 8px 0; border-bottom: 1px solid var(--line); }
+  td { border: 0; padding: 2px 0; }
+  td:empty { display: none; }
+  td.avoid::before { content: "kaçın: "; }
+  td:nth-child(3):not(:empty)::before { content: "kabul edilir: "; color: var(--weak); }
+  header, .bar, main, footer { padding-left: 16px; padding-right: 16px; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#icerik">İçeriğe geç</a>
+<header>
+  <h1>terimce</h1>
+  <p>Oyun çevirmenleri için ortak terim sözlüğü. Eksik ya da yanlış bir terim görürsen düzenle.</p>
+  <nav>
+    <a href="{{new_url}}">Terim ekle</a>
+    <a href="{{repo}}">GitHub</a>
+    <a href="{{repo}}#kurulum">Denetleyici</a>
+  </nav>
+</header>
+<div class="bar">
+  <input id="q" type="search" placeholder="İngilizce ya da Türkçe ara" aria-label="Terim ara" autofocus>
+  <select id="tag" aria-label="Türe göre süz"><option value="">Tüm türler</option>{{tags}}</select>
+  <button id="theme" type="button">Tema değiştir</button>
+  <span id="count">{{count}} terim</span>
+</div>
+<main id="icerik">
+  <table>
+    <thead><tr><th>İngilizce</th><th>Türkçe</th><th>Kabul edilir</th><th>Kaçın</th><th>Not</th><th><span hidden>Düzenle</span></th></tr></thead>
+    <tbody id="rows">
+{{rows}}
+    </tbody>
+  </table>
+  <div id="empty" hidden>
+    <p><strong id="missing"></strong> sözlükte yok.</p>
+    <p><a id="add" href="{{new_url}}">Bu terimi ekle</a>. GitHub'da dosya hazır açılır, Türkçe karşılığı yazıp öner'e basman yeterli.</p>
+  </div>
+</main>
+<footer>
+  Sözlük CC BY 4.0, denetleyici MIT lisanslı. Katkı rehberi: <a href="{{repo}}/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a>
+</footer>
+<script>
+const repo = "{{repo}}";
+const rows = [...document.querySelectorAll("#rows tr")];
+const q = document.getElementById("q"), tag = document.getElementById("tag");
+const count = document.getElementById("count"), empty = document.getElementById("empty");
+const lower = s => s.replace(/I/g, "ı").replace(/İ/g, "i").toLowerCase();
+const slug = s => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+
+function filter() {
+  const needle = lower(q.value.trim()), t = tag.value;
+  let shown = 0;
+  for (const r of rows) {
+    const ok = (!needle || r.dataset.q.includes(needle)) &&
+               (!t || r.dataset.tags.split(" ").includes(t));
+    r.hidden = !ok;
+    if (ok) shown++;
+  }
+  count.textContent = shown === rows.length ? `${rows.length} terim` : `${shown} / ${rows.length} terim`;
+  empty.hidden = shown > 0 || !needle;
+  if (!empty.hidden) {
+    const en = q.value.trim();
+    document.getElementById("missing").textContent = en;
+    const body = `en: ${en}\ntr: \nalt: []\navoid: []\ntags: []\nnote: \n`;
+    document.getElementById("add").href = `${repo}/new/main/sozluk/tr?filename=${slug(en) || "terim"}.yml&value=${encodeURIComponent(body)}`;
+  }
+  history.replaceState(null, "", needle ? `#${encodeURIComponent(q.value.trim())}` : location.pathname);
+}
+q.addEventListener("input", filter);
+tag.addEventListener("change", filter);
+if (location.hash) { q.value = decodeURIComponent(location.hash.slice(1)); filter(); }
+
+const root = document.documentElement;
+const saved = localStorage.getItem("theme");
+if (saved) root.dataset.theme = saved;
+document.getElementById("theme").addEventListener("click", () => {
+  const dark = root.dataset.theme ? root.dataset.theme === "dark" : !matchMedia("(prefers-color-scheme: light)").matches;
+  root.dataset.theme = dark ? "light" : "dark";
+  localStorage.setItem("theme", root.dataset.theme);
+});
+</script>
+</body>
+</html>
