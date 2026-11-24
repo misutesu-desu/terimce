@@ -4,7 +4,7 @@ En kolay katkı sözlüğe bir terim eklemek ya da var olanı düzeltmek. Bunun 
 
 ## Terim eklemek
 
-1. [Sözlük sayfasında](https://misutesu-desu.github.io/terimce/) terimi ara. Yoksa çıkan Bu terimi ekle bağlantısına tıkla. GitHub'da dosya hazır açılır.
+1. [Sözlük sayfasında](https://misutesu.com/terimce/) terimi ara. Yoksa çıkan Bu terimi ekle bağlantısına tıkla. GitHub'da dosya hazır açılır.
 2. Alanları doldur:
 
    ```yaml

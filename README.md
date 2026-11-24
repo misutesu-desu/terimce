@@ -7,7 +7,7 @@ Oyun çeviri dosyalarını denetleyen bir komut satırı aracı ve ona bağlı, 
 
 C# ile yazılmış bir oyunda `ToUpperInvariant()` GİRİŞ yazısını GIRIŞ yapar. Çeviriye kaynakta olmayan bir `{1}` girerse `string.Format` o satırda FormatException fırlatır. Bir çevirmen frame rate için kare hızı yazar, öbürü çerçeve hızı. terimce bu tür hataları dosya oyuna girmeden bulur.
 
-Sözlüğe göz atmak için: https://misutesu-desu.github.io/terimce/
+Sözlüğe göz atmak için: https://misutesu.com/terimce/
 
 ```
 $ terimce lint ornekler/tr.po
