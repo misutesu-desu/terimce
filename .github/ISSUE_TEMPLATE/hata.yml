@@ -1,0 +1,22 @@
+name: Denetleyici hatası
+description: Yanlış alarm, kaçan bir hata ya da okunamayan bir dosya
+labels: [hata]
+body:
+  - type: textarea
+    id: line
+    attributes:
+      label: Satır
+      description: Kaynak ve çeviri metni, mümkünse dosyadan birkaç satır.
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Ne bekliyordun, ne oldu?
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: terimce --version çıktısı

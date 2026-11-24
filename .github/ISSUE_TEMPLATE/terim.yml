@@ -1,0 +1,21 @@
+name: Terim tartışması
+description: Bir terimin karşılığını sormak ya da var olanı değiştirmeyi önermek için
+labels: [sozluk]
+body:
+  - type: input
+    id: en
+    attributes:
+      label: İngilizce terim
+    validations:
+      required: true
+  - type: input
+    id: tr
+    attributes:
+      label: Önerdiğin karşılık
+  - type: textarea
+    id: why
+    attributes:
+      label: Neden
+      description: Hangi oyunda ya da çeviride gördün, şimdiki karşılık neden uygun değil?
+    validations:
+      required: true
