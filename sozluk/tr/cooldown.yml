@@ -1,0 +1,6 @@
+en: cooldown
+tr: bekleme süresi
+alt: [yenilenme süresi]
+avoid: [soğuma süresi]
+tags: [savas]
+note: Yeteneğin yeniden kullanılabilmesi için geçmesi gereken süre.
