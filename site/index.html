@@ -3,162 +3,107 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>terimce: oyun çevirisi terim sözlüğü</title>
-<meta name="description" content="Oyun çevirmenleri için ortak İngilizce Türkçe terim sözlüğü. Herkes düzenleyebilir.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%23005fb8'/%3E%3Ctext x='8' y='12.5' font-size='12' font-family='Segoe UI,sans-serif' text-anchor='middle' fill='%23fff'%3E%C4%B0%3C/text%3E%3C/svg%3E">
+<title>terimce sözlüğü</title>
+<meta name="description" content="Oyun çevirisinde kullanılan İngilizce terimlerin Türkçe karşılıkları.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext x='8' y='13' font-size='14' font-family='Segoe UI,sans-serif' font-weight='600' text-anchor='middle' fill='%23005fb8'%3E%C4%B0%3C/text%3E%3C/svg%3E">
 <style>
-.skip { position: absolute; left: -9999px; }
-.skip:focus { left: 8px; top: 8px; background: var(--field); padding: 4px 8px; z-index: 1; }
 :root {
-  color-scheme: dark;
-  --strip: #0a0a0a; --content: #191919; --nav: #1f1f1f; --field: #2c2c2c;
-  --hover: #2d2d2d; --line: #3a3a3a; --control-stroke: #8a8a8a;
-  --button: #2d2d2d; --button-stroke: #3a3a3a; --pressed: #424242;
-  --text: #f0f0f0; --weak: #c8c8c8;
-  --accent: #0078d4; --accent-text: #60cdff; --error-text: #ff99a4;
-  --focus: var(--text);
+  color-scheme: light dark;
+  --bg: #fff; --bar: #f9f9f9; --line: #e5e5e5; --field-line: #8a8a8a;
+  --text: #1a1a1a; --weak: #606060; --link: #005fb8; --wrong: #c42b1c; --hover: #f0f0f0;
 }
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) {
-    color-scheme: light;
-    --strip: #e8e8e8; --content: #fff; --nav: #f9f9f9; --field: #fff;
-    --hover: #f0f0f0; --line: #e5e5e5; --button: #fbfbfb; --button-stroke: #dedede;
-    --pressed: #dedede; --text: #1a1a1a; --weak: #606060;
-    --accent-text: #005fb8; --error-text: #c42b1c;
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #191919; --bar: #1f1f1f; --line: #3a3a3a;
+    --text: #f0f0f0; --weak: #c8c8c8; --link: #60cdff; --wrong: #ff99a4; --hover: #2d2d2d;
   }
-}
-:root[data-theme="light"] {
-  color-scheme: light;
-  --strip: #e8e8e8; --content: #fff; --nav: #f9f9f9; --field: #fff;
-  --hover: #f0f0f0; --line: #e5e5e5; --button: #fbfbfb; --button-stroke: #dedede;
-  --pressed: #dedede; --text: #1a1a1a; --weak: #606060;
-  --accent-text: #005fb8; --error-text: #c42b1c;
 }
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
-body { margin: 0; background: var(--content); color: var(--text);
-  font: 14px/1.5 "Segoe UI Variable", "Segoe UI", system-ui, sans-serif; }
-a { color: var(--accent-text); }
-:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
-header { background: var(--strip); padding: 16px 24px; display: flex; flex-wrap: wrap;
-  gap: 8px 24px; align-items: baseline; }
-header h1 { font-size: 20px; margin: 0; }
-header p { margin: 0; color: var(--weak); flex: 1 1 320px; }
-header nav { display: flex; gap: 16px; }
-.bar { background: var(--nav); padding: 12px 24px; display: flex; flex-wrap: wrap;
-  gap: 8px 12px; align-items: center; border-bottom: 1px solid var(--line);
-  position: sticky; top: 0; }
-input, select { font: inherit; color: var(--text); background: var(--field); border: 0;
-  border-bottom: 1px solid var(--control-stroke); border-radius: 4px; height: 32px; padding: 0 8px; }
-:root[data-theme="light"] :is(input, select) { border: 1px solid var(--line);
-  border-bottom-color: var(--control-stroke); }
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) :is(input, select) { border: 1px solid var(--line);
-    border-bottom-color: var(--control-stroke); }
-}
-input:focus { outline: none; border-bottom: 2px solid var(--accent-text); }
-#q { flex: 1 1 240px; max-width: 420px; }
-button { font: inherit; color: var(--text); background: var(--button);
-  border: 1px solid var(--button-stroke); border-radius: 5px; min-height: 32px; padding: 0 12px; cursor: pointer; }
-button:hover { background: var(--hover); }
-button:active { background: var(--pressed); }
-#count { color: var(--weak); font-variant-numeric: tabular-nums; margin-left: auto; }
-main { padding: 0 24px 48px; }
-table { width: 100%; border-collapse: collapse; }
-th { text-align: left; font-weight: 400; color: var(--weak); padding: 12px 8px 8px;
-  border-bottom: 1px solid var(--line); }
-td { padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top;
-  overflow-wrap: anywhere; }
-tbody tr:hover { background: var(--hover); }
-td.tr { font-size: 16px; }
-td.avoid { color: var(--error-text); }
-td.note { color: var(--weak); max-width: 40ch; }
-.edit { white-space: nowrap; }
-#empty { padding: 32px 8px; max-width: 65ch; }
-#empty[hidden] { display: none; }
-footer { padding: 24px; color: var(--weak); border-top: 1px solid var(--line); }
-@media (max-width: 720px) {
-  thead { display: none; }
-  table, tbody, tr, td { display: block; }
-  tr { padding: 8px 0; border-bottom: 1px solid var(--line); }
-  td { border: 0; padding: 2px 0; }
-  td:empty { display: none; }
-  td.avoid::before { content: "kaçın: "; }
-  td:nth-child(3):not(:empty)::before { content: "kabul edilir: "; color: var(--weak); }
-  header, .bar, main, footer { padding-left: 16px; padding-right: 16px; }
-}
+body { margin: 0; background: var(--bg); color: var(--text);
+  font: 15px/1.5 "Segoe UI Variable", "Segoe UI", system-ui, sans-serif; }
+a { color: var(--link); }
+:focus-visible { outline: 2px solid var(--text); outline-offset: 1px; }
+.skip { position: absolute; left: -9999px; }
+.skip:focus { left: 8px; top: 8px; background: var(--bar); padding: 4px 8px; z-index: 2; }
+.wrap { max-width: 720px; margin: 0 auto; padding: 0 16px; }
+
+header { padding: 32px 0 16px; }
+h1 { font-size: 24px; line-height: 1.2; margin: 0 0 8px; }
+header p { margin: 0; color: var(--weak); max-width: 60ch; }
+
+.find { position: sticky; top: 0; z-index: 1; background: var(--bg);
+  padding: 12px 0 8px; border-bottom: 1px solid var(--line); }
+#q { width: 100%; font: inherit; font-size: 17px; color: var(--text); background: var(--bar);
+  border: 0; border-bottom: 1px solid var(--field-line); border-radius: 4px; height: 40px; padding: 0 12px; }
+#q:focus { outline: none; border-bottom: 2px solid var(--link); }
+nav { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
+nav a { min-width: 24px; min-height: 24px; text-align: center; text-decoration: none;
+  font-variant-numeric: tabular-nums; border-radius: 4px; }
+nav a:hover { background: var(--hover); }
+
+h2 { font-size: 13px; color: var(--weak); font-weight: 400; margin: 24px 0 0;
+  padding-bottom: 4px; border-bottom: 1px solid var(--line); }
+dl { margin: 0; }
+.term { padding: 8px 0; border-bottom: 1px solid var(--line); }
+dt { display: flex; align-items: baseline; gap: 12px; }
+dt .edit { margin-left: auto; font-size: 13px; opacity: 0; }
+.term:hover .edit, .edit:focus-visible { opacity: 1; }
+@media (hover: none) { dt .edit { opacity: 1; } }
+dd { margin: 2px 0 0; }
+.tr b { font-size: 17px; font-weight: 600; }
+.alt { color: var(--weak); }
+s { color: var(--wrong); }
+.note { margin: 4px 0 0; color: var(--weak); font-size: 14px; max-width: 60ch; }
+
+#empty { padding: 24px 0; }
+footer { padding: 32px 0 48px; color: var(--weak); font-size: 14px; }
 </style>
 </head>
 <body>
-<a class="skip" href="#icerik">İçeriğe geç</a>
+<a class="skip" href="#icerik">Terimlere geç</a>
+<div class="wrap">
 <header>
-  <h1>terimce</h1>
-  <p>Oyun çevirmenleri için ortak terim sözlüğü. Eksik ya da yanlış bir terim görürsen düzenle.</p>
-  <nav>
-    <a href="{{new_url}}">Terim ekle</a>
-    <a href="{{repo}}">GitHub</a>
-    <a href="{{repo}}#kurulum">Denetleyici</a>
-  </nav>
+  <h1>terimce sözlüğü</h1>
+  <p>Oyun çevirilerinde geçen {{count}} İngilizce terim ve önerilen karşılıkları. Üstü çizili olanlar <a href="{{repo}}">terimce</a> denetleyicisinde hata sayılıyor.</p>
 </header>
-<div class="bar">
-  <input id="q" type="search" placeholder="İngilizce ya da Türkçe ara" aria-label="Terim ara" autofocus>
-  <select id="tag" aria-label="Türe göre süz"><option value="">Tüm türler</option>{{tags}}</select>
-  <button id="theme" type="button">Tema değiştir</button>
-  <span id="count">{{count}} terim</span>
+<div class="find">
+  <input id="q" type="search" placeholder="cooldown, kare hızı…" aria-label="Terim ara" autocomplete="off">
+  <nav aria-label="Harfler">{{letters}}</nav>
 </div>
 <main id="icerik">
-  <table>
-    <thead><tr><th>İngilizce</th><th>Türkçe</th><th>Kabul edilir</th><th>Kaçın</th><th>Not</th><th><span hidden>Düzenle</span></th></tr></thead>
-    <tbody id="rows">
-{{rows}}
-    </tbody>
-  </table>
-  <div id="empty" hidden>
-    <p><strong id="missing"></strong> sözlükte yok.</p>
-    <p><a id="add" href="{{new_url}}">Bu terimi ekle</a>. GitHub'da dosya hazır açılır, Türkçe karşılığı yazıp öner'e basman yeterli.</p>
-  </div>
+{{sections}}
+<div id="empty" hidden>
+  <p><b id="missing"></b> yok. <a id="add" href="#">GitHub'da ekleyebilirsin</a>, dosya hazır açılıyor.</p>
+</div>
 </main>
 <footer>
-  Sözlük CC BY 4.0, denetleyici MIT lisanslı. Katkı rehberi: <a href="{{repo}}/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a>
+  Bir karşılığa katılmıyorsan terimin yanındaki düzenle bağlantısıyla değiştirip PR açabilirsin. <a href="{{repo}}/blob/main/CONTRIBUTING.md">Nasıl?</a>
 </footer>
+</div>
 <script>
 const repo = "{{repo}}";
-const rows = [...document.querySelectorAll("#rows tr")];
-const q = document.getElementById("q"), tag = document.getElementById("tag");
-const count = document.getElementById("count"), empty = document.getElementById("empty");
+const terms = [...document.querySelectorAll(".term")];
+const sections = [...document.querySelectorAll("main section")];
+const q = document.getElementById("q"), empty = document.getElementById("empty");
 const lower = s => s.replace(/I/g, "ı").replace(/İ/g, "i").toLowerCase();
 const slug = s => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
 function filter() {
-  const needle = lower(q.value.trim()), t = tag.value;
-  let shown = 0;
-  for (const r of rows) {
-    const ok = (!needle || r.dataset.q.includes(needle)) &&
-               (!t || r.dataset.tags.split(" ").includes(t));
-    r.hidden = !ok;
-    if (ok) shown++;
-  }
-  count.textContent = shown === rows.length ? `${rows.length} terim` : `${shown} / ${rows.length} terim`;
-  empty.hidden = shown > 0 || !needle;
+  const raw = q.value.trim(), needle = lower(raw);
+  for (const t of terms) t.hidden = needle && !t.dataset.q.includes(needle);
+  for (const s of sections) s.hidden = !s.querySelector(".term:not([hidden])");
+  empty.hidden = !needle || terms.some(t => !t.hidden);
   if (!empty.hidden) {
-    const en = q.value.trim();
-    document.getElementById("missing").textContent = en;
-    const body = `en: ${en}\ntr: \nalt: []\navoid: []\ntags: []\nnote: \n`;
-    document.getElementById("add").href = `${repo}/new/main/sozluk/tr?filename=${slug(en) || "terim"}.yml&value=${encodeURIComponent(body)}`;
+    document.getElementById("missing").textContent = raw;
+    const body = `en: ${raw}\ntr: \nalt: []\navoid: []\ntags: []\nnote: \n`;
+    document.getElementById("add").href =
+      `${repo}/new/main/sozluk/tr?filename=${slug(raw) || "terim"}.yml&value=${encodeURIComponent(body)}`;
   }
-  history.replaceState(null, "", needle ? `#${encodeURIComponent(q.value.trim())}` : location.pathname);
 }
 q.addEventListener("input", filter);
-tag.addEventListener("change", filter);
-if (location.hash) { q.value = decodeURIComponent(location.hash.slice(1)); filter(); }
-
-const root = document.documentElement;
-const saved = localStorage.getItem("theme");
-if (saved) root.dataset.theme = saved;
-document.getElementById("theme").addEventListener("click", () => {
-  const dark = root.dataset.theme ? root.dataset.theme === "dark" : !matchMedia("(prefers-color-scheme: light)").matches;
-  root.dataset.theme = dark ? "light" : "dark";
-  localStorage.setItem("theme", root.dataset.theme);
+document.addEventListener("keydown", e => {
+  if (e.key === "/" && document.activeElement !== q) { e.preventDefault(); q.focus(); }
 });
 </script>
 </body>
