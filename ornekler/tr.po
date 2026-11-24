@@ -1,0 +1,25 @@
+msgid ""
+msgstr ""
+"Language: tr\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "New Game"
+msgstr "Yeni Oyun"
+
+msgid "You picked up {count} potions."
+msgstr "İksirleri topladın."
+
+msgid "LOGIN"
+msgstr "GIRIŞ"
+
+msgid "Frame rate limit"
+msgstr "Çerçeve hızı sınırı"
+
+msgid "{name} joined the squad"
+msgstr "{name} tim'e katıldı"
+
+msgid "{name}'s inventory is full."
+msgstr "{name}'ın envanteri dolu."
+
+msgid "Quit to desktop?"
+msgstr "Masaüstüne dön"
